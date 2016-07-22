@@ -41,36 +41,36 @@ app.post('/getrecipe', function(req, res){
 
 
 // app.post('/favorites', function(request, response){
-  console.log("request.body", request.body);
-
-  MongoClient.connect(mongoUrl, function (err, db) {
-    var favoritesCollection = db.collection('favorites');
-    if (err) {
-      console.log('Unable to connect to the mongoDB server. ERROR:', err);
-    } else {
-      // We are connected!
-      console.log('Connection established to', mongoUrl);
-      console.log('Adding new user...');
-
-      /* Insert */
-      var newUser = request.body;
-      favoritesCollection.insert([newUser], function (err, result) {
-        if (err) {
-          console.log(err);
-          response.json("error");
-        } else {
-          console.log('Inserted.');
-          console.log('RESULT!!!!', result);
-          console.log("end result");
-          response.json(result);
-        }
-        db.close(function() {
-          console.log( "database CLOSED");
-        });
-      }); // end insert
-    } // end else
-  }); // end mongo connect
-}); // end add new
+//   console.log("request.body", request.body);
+//
+//   MongoClient.connect(mongoUrl, function (err, db) {
+//     var favoritesCollection = db.collection('favorites');
+//     if (err) {
+//       console.log('Unable to connect to the mongoDB server. ERROR:', err);
+//     } else {
+//       // We are connected!
+//       console.log('Connection established to', mongoUrl);
+//       console.log('Adding new user...');
+//
+//       /* Insert */
+//       var newUser = request.body;
+//       favoritesCollection.insert([newUser], function (err, result) {
+//         if (err) {
+//           console.log(err);
+//           response.json("error");
+//         } else {
+//           console.log('Inserted.');
+//           console.log('RESULT!!!!', result);
+//           console.log("end result");
+//           response.json(result);
+//         }
+//         db.close(function() {
+//           console.log( "database CLOSED");
+//         });
+//       }); // end insert
+//     } // end else
+//   }); // end mongo connect
+// }); // end add new
 
 
 
