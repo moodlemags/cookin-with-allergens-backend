@@ -13,7 +13,7 @@ app.get('/', function(request, response){
 })
 
 
-app.post('getrecipe', function(req, res){
+app.post('/getrecipe', function(req, res){
 
   var baseURL = 'http://api.yummly.com/v1/api/';
   var YUMMLY_USER = process.env.YUMMLY_USER;
