@@ -51,12 +51,12 @@ app.post('/favorites', function(request, response){
     console.log("request.body", request.body);
     // MongoClient.connect(mongoUrl, function (err, db) {
       var favoriteRecipes = db.collection('favorites');
-      if (err) {
-        console.log('Unable to connect to the mongoDB server. ERROR:', err);
-      } else {
+      // if (err) {
+      //   console.log('Unable to connect to the mongoDB server. ERROR:', err);
+      // } else {
         // We are connected!
         console.log('Connection established to', mongoUrl);
-        console.log('Adding new user...');
+        console.log('Adding new recipe...');
 
         /* Insert */
         var newRecipe = request.body;
@@ -74,7 +74,7 @@ app.post('/favorites', function(request, response){
             console.log(db.getCollectionNames());
           // }); //end closing mongo
       }); // end inserting recipe into mongo db
-    } // end else enforcing we're connected to mongo
+    // } // end else enforcing we're connected to mongo
   // }); // end establishing connection to mongo
 }); // end post request to add new recipe
 
