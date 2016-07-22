@@ -49,12 +49,8 @@ app.post('/getrecipe', function(req, res){
 //add favorite recipe
 app.post('/favorites', function(request, response){
     console.log("request.body", request.body);
-    // MongoClient.connect(mongoUrl, function (err, db) {
       var favoriteRecipes = db.collection('favorites');
-      // if (err) {
-      //   console.log('Unable to connect to the mongoDB server. ERROR:', err);
-      // } else {
-        // We are connected!
+
         console.log('Connection established to', mongoUrl);
         console.log('Adding new recipe...');
 
@@ -69,13 +65,31 @@ app.post('/favorites', function(request, response){
             console.log('Result:', result);
             response.json(result);
           }
-          // db.close(function() {
-          //   console.log( "database closed");
-          // }); //end closing mongo
+
       }); // end inserting recipe into mongo db
-    // } // end else enforcing we're connected to mongo
-  // }); // end establishing connection to mongo
 }); // end post request to add new recipe
+
+pp.get('/favorites', function(request, response){
+    var favoritesCollection = db.collection('favorites');
+      favoritesCollection.find().toArray(function (err, result) {
+        if (err) {
+          console.log("ERROR!", err);
+          response.json("error");
+        } else if (result.length) {
+          console.log('Found:', result);
+          response.json(result);
+        } else { //
+          console.log('No document(s) found with defined "find" criteria');
+          response.json("none found");
+        }
+
+      }); // end
+    });
+
+    } // end else
+  }); // end mongo connect
+}); // end get all
+
 
 
 
