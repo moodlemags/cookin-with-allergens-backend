@@ -12,6 +12,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 var MongoClient = mongodb.MongoClient;
 var mongoUrl = 'mongodb://heroku_2nv9nrvz:e6a82tjhm3ilo9688qargmq1ma@ds027215.mlab.com:27215/heroku_2nv9nrvz';
 
+mongodb.MongoClient.connect(process.env.MONGODB_URI || mongoUrl, function (err, database) {
+        if (err) {
+          console.log(err);
+          process.exit(1);
+        }
+  db = database;
+  console.log("Database connection ready");
+});
 
 app.get('/', function(request, response){
   response.json({"description": "My back end is up and running"})
@@ -41,7 +49,7 @@ app.post('/getrecipe', function(req, res){
 //add favorite recipe
 app.post('/favorites', function(request, response){
     console.log("request.body", request.body);
-    MongoClient.connect(mongoUrl, function (err, db) {
+    // MongoClient.connect(mongoUrl, function (err, db) {
       var favoriteRecipes = db.collection('favorites');
       if (err) {
         console.log('Unable to connect to the mongoDB server. ERROR:', err);
@@ -61,13 +69,13 @@ app.post('/favorites', function(request, response){
             console.log('Result:', result);
             response.json(result);
           }
-          db.close(function() {
-            console.log( "database closed");
-            console.log(db.stats().collection);
-          }); //end closing mongo
+          // db.close(function() {
+          //   console.log( "database closed");
+            console.log(db.getCollectionNames());
+          // }); //end closing mongo
       }); // end inserting recipe into mongo db
     } // end else enforcing we're connected to mongo
-  }); // end establishing connection to mongo
+  // }); // end establishing connection to mongo
 }); // end post request to add new recipe
 
 
