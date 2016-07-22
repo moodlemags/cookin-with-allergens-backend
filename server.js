@@ -40,7 +40,7 @@ app.post('/getrecipe', function(req, res){
 
 
 
-app.post('/favorites', function(request, response){
+// app.post('/favorites', function(request, response){
   console.log("request.body", request.body);
 
   MongoClient.connect(mongoUrl, function (err, db) {
