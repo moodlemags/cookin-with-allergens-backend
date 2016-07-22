@@ -86,9 +86,6 @@ pp.get('/favorites', function(request, response){
       }); // end
     });
 
-    } // end else
-  }); // end mongo connect
-}); // end get all
 
 
 
