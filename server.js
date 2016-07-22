@@ -71,7 +71,6 @@ app.post('/favorites', function(request, response){
           }
           // db.close(function() {
           //   console.log( "database closed");
-            console.log(db.favorites.find());
           // }); //end closing mongo
       }); // end inserting recipe into mongo db
     // } // end else enforcing we're connected to mongo
