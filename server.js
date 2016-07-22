@@ -69,7 +69,7 @@ app.post('/favorites', function(request, response){
       }); // end inserting recipe into mongo db
 }); // end post request to add new recipe
 
-pp.get('/favorites', function(request, response){
+app.get('/favorites', function(request, response){
     var favoritesCollection = db.collection('favorites');
       favoritesCollection.find().toArray(function (err, result) {
         if (err) {
