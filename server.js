@@ -34,7 +34,7 @@ app.post('/get', function(req, res){
 
 })// end post fxn
 
-
-app.listen(3000, function(){
-  console.log('listening to events');
-})
+PORT = process.env.PORT || 80;
+app.listen(PORT, function(){
+  console.log('listening to events on a "port".')
+});
