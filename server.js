@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //init mongo
 var MongoClient = mongodb.MongoClient;
-var mongoUrl = 'mongodb://localhost:27017/recipe_saver_db';
+var mongoUrl = 'mongodb://heroku_2nv9nrvz:e6a82tjhm3ilo9688qargmq1ma@ds027215.mlab.com:27215/heroku_2nv9nrvz';
 
 
 app.get('/', function(request, response){
@@ -42,34 +42,34 @@ app.post('/getrecipe', function(req, res){
 
 app.post('/favorites', function(request, response){
   console.log("request.body", request.body);
-//
-//   MongoClient.connect(mongoUrl, function (err, db) {
-//     var favoritesCollection = db.collection('favorites');
-//     if (err) {
-//       console.log('Unable to connect to the mongoDB server. ERROR:', err);
-//     } else {
-//       // We are connected!
-//       console.log('Connection established to', mongoUrl);
-//       console.log('Adding new user...');
-//
-//       /* Insert */
-//       var newUser = request.body;
-//       favoritesCollection.insert([newUser], function (err, result) {
-//         if (err) {
-//           console.log(err);
-//           response.json("error");
-//         } else {
-//           console.log('Inserted.');
-//           console.log('RESULT!!!!', result);
-//           console.log("end result");
-//           response.json(result);
-//         }
-//         db.close(function() {
-//           console.log( "database CLOSED");
-//         });
-//       }); // end insert
-//     } // end else
-//   }); // end mongo connect
+
+  MongoClient.connect(mongoUrl, function (err, db) {
+    var favoritesCollection = db.collection('favorites');
+    if (err) {
+      console.log('Unable to connect to the mongoDB server. ERROR:', err);
+    } else {
+      // We are connected!
+      console.log('Connection established to', mongoUrl);
+      console.log('Adding new user...');
+
+      /* Insert */
+      var newUser = request.body;
+      favoritesCollection.insert([newUser], function (err, result) {
+        if (err) {
+          console.log(err);
+          response.json("error");
+        } else {
+          console.log('Inserted.');
+          console.log('RESULT!!!!', result);
+          console.log("end result");
+          response.json(result);
+        }
+        db.close(function() {
+          console.log( "database CLOSED");
+        });
+      }); // end insert
+    } // end else
+  }); // end mongo connect
 }); // end add new
 
 
