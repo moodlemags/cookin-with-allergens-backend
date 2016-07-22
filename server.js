@@ -17,7 +17,7 @@ app.get('/', function(request, response){
   response.json({"description": "My back end is up and running"})
 })
 
-
+//get recipe
 app.post('/getrecipe', function(req, res){
 
   var baseURL = 'http://api.yummly.com/v1/api/';
@@ -38,44 +38,37 @@ app.post('/getrecipe', function(req, res){
   });
 })// end search for recipe fxn
 
-
-
+//add favorite recipe
 app.post('/favorites', function(request, response){
-  console.log("request.body", request.body);
+    console.log("request.body", request.body);
+    MongoClient.connect(mongoUrl, function (err, db) {
+      var favoriteRecipes = db.collection('favorites');
+      if (err) {
+        console.log('Unable to connect to the mongoDB server. ERROR:', err);
+      } else {
+        // We are connected!
+        console.log('Connection established to', mongoUrl);
+        console.log('Adding new user...');
 
-  MongoClient.connect(mongoUrl, function (err, db) {
-    var favoritesCollection = db.collection('favorites');
-    if (err) {
-      console.log('Unable to connect to the mongoDB server. ERROR:', err);
-    } else {
-      // We are connected!
-      console.log('Connection established to', mongoUrl);
-      console.log('Adding new user...');
-
-      /* Insert */
-      var newUser = request.body;
-      favoritesCollection.insert([newUser], function (err, result) {
-        if (err) {
-          console.log(err);
-          response.json("error");
-        } else {
-          console.log('Inserted.');
-          console.log('RESULT!!!!', result);
-          console.log("end result");
-          response.json(result);
-        }
-        db.close(function() {
-          console.log( "database CLOSED");
-        });
-      }); // end insert
-    } // end else
-  }); // end mongo connect
-}); // end add new
-
-
-
-
-
+        /* Insert */
+        var newRecipe = request.body;
+        favoriteRecipes.insert([newRecipe], function (err, result) {
+          if (err) {
+            console.log(err);
+            response.json("error");
+          } else {
+            console.log('Inserted: ', newRecipe);
+            console.log('Result:', result);
+            response.json(result);
+          }
+          db.close(function() {
+            console.log( "database closed");
+            console.log(db.stats().collection);
+          }); //end closing mongo
+      }); // end inserting recipe into mongo db
+    } // end else enforcing we're connected to mongo
+  }); // end establishing connection to mongo
+}); // end post request to add new recipe
 
 
 
