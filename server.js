@@ -40,8 +40,8 @@ app.post('/getrecipe', function(req, res){
 
 
 
-// app.post('/favorites', function(request, response){
-//   console.log("request.body", request.body);
+app.post('/favorites', function(request, response){
+  console.log("request.body", request.body);
 //
 //   MongoClient.connect(mongoUrl, function (err, db) {
 //     var favoritesCollection = db.collection('favorites');
@@ -70,7 +70,7 @@ app.post('/getrecipe', function(req, res){
 //       }); // end insert
 //     } // end else
 //   }); // end mongo connect
-// }); // end add new
+}); // end add new
 
 
 
