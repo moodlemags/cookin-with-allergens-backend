@@ -12,15 +12,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 var MongoClient = mongodb.MongoClient;
 var mongoUrl = 'mongodb://localhost:27017/recipe_saver_db';
 
-mongodb.MongoClient.connect(process.env.MONGODB_URI || mongoUrl, function (err, database) {
-  if (err) {
-    console.log('db connection error ' + err);
-    process.exit(1);
-  } else { console.log('no error');}
-
-  db = database;
-});
-
 
 app.get('/', function(request, response){
   response.json({"description": "My back end is up and running"})
@@ -49,8 +40,7 @@ app.post('/getrecipe', function(req, res){
 
 
 
-app.post('/favorites/new', function(request, response){
-  // response.json({"description":"add new"});
+app.post('/favorites', function(request, response){
   console.log("request.body", request.body);
 
   MongoClient.connect(mongoUrl, function (err, db) {
