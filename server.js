@@ -69,6 +69,7 @@ app.post('/favorites', function(request, response){
       }); // end inserting recipe into mongo db
 }); // end post request to add new recipe
 
+//see all favorite recipes
 app.get('/favorites', function(request, response){
     var favoriteRecipes = db.collection('favorites');
       favoriteRecipes.find().toArray(function (err, result) {
@@ -86,23 +87,25 @@ app.get('/favorites', function(request, response){
       }); // end
     });
 
-// app.get('/favorites/:name', function(request, response){
-//   console.log("request.params: ", request.params);
-//   favoriteRecipes.find(request.params).toArray(function (err, result) {
-//             if (err) {
-//               console.log("ERROR!", err);
-//               response.json("error");
-//             } else if (result.length) {
-//               console.log('Found:', result);
-//               response.json(result);
-//             } else { //
-//               console.log('No document(s) found with defined "find" criteria');
-//               response.json("none found");
-//             }
-//
-//           }); // end find
-//         }); // end else
-//
+
+//find favorite recipe
+app.get('/favorites/:name', function(request, response){
+  console.log("request.params: ", request.params);
+  favoriteRecipes.find(request.params).toArray(function (err, result) {
+            if (err) {
+              console.log("ERROR!", err);
+              response.json("error");
+            } else if (result.length) {
+              console.log('Found:', result);
+              response.json(result);
+            } else { //
+              console.log('No document(s) found with defined "find" criteria');
+              response.json("none found");
+            }
+
+          }); // end find
+        }); // end else
+
 //
 //         app.delete('/favorites/:name', function(request, response) {
 //           // response.json({"description":"delete by name"});
