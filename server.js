@@ -91,6 +91,7 @@ app.get('/favorites', function(request, response){
 //find favorite recipe
 app.get('/favorites/:name', function(request, response){
   console.log("request.params: ", request.params);
+  var favoriteRecipes = db.collection('favorites');
   favoriteRecipes.find(request.params).toArray(function (err, result) {
             if (err) {
               console.log("ERROR!", err);
