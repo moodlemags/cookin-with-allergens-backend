@@ -131,7 +131,7 @@ app.delete('/favorites/:name', function(request, response) {
       }); // end delete
       }; // end else
 
-  } // end search
+  }); // end search
 }); // end delete
 
 //
