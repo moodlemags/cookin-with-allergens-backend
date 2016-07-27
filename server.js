@@ -70,8 +70,8 @@ app.post('/favorites', function(request, response){
 }); // end post request to add new recipe
 
 app.get('/favorites', function(request, response){
-    var favoritesCollection = db.collection('favorites');
-      favoritesCollection.find().toArray(function (err, result) {
+    var favoriteRecipes = db.collection('favorites');
+      favoriteRecipes.find().toArray(function (err, result) {
         if (err) {
           console.log("ERROR!", err);
           response.json("error");
@@ -86,8 +86,83 @@ app.get('/favorites', function(request, response){
       }); // end
     });
 
+app.get('/favorites/:name', function(request, response){
+  console.log("request.params: ", request.params);
+  favoriteRecipes.find(request.params).toArray(function (err, result) {
+            if (err) {
+              console.log("ERROR!", err);
+              response.json("error");
+            } else if (result.length) {
+              console.log('Found:', result);
+              response.json(result);
+            } else { //
+              console.log('No document(s) found with defined "find" criteria');
+              response.json("none found");
+            }
+
+          }); // end find
+        } // end else
 
 
+        app.delete('/favorites/:name', function(request, response) {
+          // response.json({"description":"delete by name"});
+
+          console.log("request.body:", request.body);
+          console.log("request.params:", request.params);
+
+
+              /* Delete */
+              favoriteRecipes.remove(request.params, function(err, numOfRemovedDocs) {
+                console.log("numOfRemovedDocs:", numOfRemovedDocs);
+                if(err) {
+                  console.log("error!", err);
+                } else { // after deletion, retrieve list of all
+                  favoritesCollection.find().toArray(function (err, result) {
+                    if (err) {
+                      console.log("ERROR!", err);
+                      response.json("error");
+                    } else if (result.length) {
+                      console.log('Found:', result);
+                      response.json(result);
+                    } else { //
+                      console.log('No document(s) found with defined "find" criteria');
+                      response.json("none found");
+                    }
+                    });
+                  }); // end find
+
+                } // end else
+              }); // end remove
+
+
+        /* update */
+        app.put('/favorites/:name', function(request, response) {
+          // response.json({"description":"update by name"});
+          console.log("request.body", request.body);
+          console.log("request.params:", request.params);
+
+          var old = {name: request.body.name};
+          var updateTo = {name: request.body.newName}
+
+              /* Update */
+              favoriteRecipes.update(old,updateTo);
+
+              // Wait a sec then fetch the modified doc
+              // setTimeout(function() {
+              //   favoriteRecipes.find(updateTo).toArray(function (err, result) {
+              //     if (err) {
+              //       console.log("ERROR!", err);
+              //       response.json("error");
+              //     } else if (result.length) {
+              //       console.log('Found:', result);
+              //       response.json(result);
+              //     } else { //
+              //       console.log('No document(s) found with defined "find" criteria');
+              //       response.json("none found");
+              //     }
+                }); // end find
+              }, 1000);
+            } // end else
 
 
 PORT = process.env.PORT || 80;
