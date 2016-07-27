@@ -125,7 +125,7 @@ app.delete('/favorites/:name', function(request, response) {
             console.log('Found:', result);
             response.json(result);
           } else { //
-            console.log('No document(s) found with defined "find" criteria');
+            console.log('Cannot locate stored recipe');
             response.json("none found");
           }
       }); // end delete
@@ -134,35 +134,31 @@ app.delete('/favorites/:name', function(request, response) {
   }); // end search
 }); // end delete
 
-//
-//         /* update */
-//         app.put('/favorites/:name', function(request, response) {
-//           // response.json({"description":"update by name"});
-//           console.log("request.body", request.body);
-//           console.log("request.params:", request.params);
-//
-//           var old = {name: request.body.name};
-//           var updateTo = {name: request.body.newName}
-//
-//               /* Update */
-//               favoriteRecipes.update(old,updateTo);
-//
-//               // Wait a sec then fetch the modified doc
-//               // setTimeout(function() {
-//               //   favoriteRecipes.find(updateTo).toArray(function (err, result) {
-//               //     if (err) {
-//               //       console.log("ERROR!", err);
-//               //       response.json("error");
-//               //     } else if (result.length) {
-//               //       console.log('Found:', result);
-//               //       response.json(result);
-//               //     } else { //
-//               //       console.log('No document(s) found with defined "find" criteria');
-//               //       response.json("none found");
-//               //     }
-//                 }); // end find
-//               }, 1000);
-//             } // end else
+// update favorite recipe title
+app.put('/favorites/:name', function(request, response) {
+    console.log("request.body", request.body);
+    console.log("request.params:", request.params);
+
+    var favoriteRecipes = db.collection('favorites');
+    var oldTitle = {name: request.body.name};
+    var newTitle = {name: request.body.newName}
+
+    favoriteRecipes.update(old,updateTo);
+      setTimeout(function() {
+        favoriteRecipes.find(updateTo).toArray(function (err, result) {
+          if (err) {
+            console.log("ERROR!", err);
+            response.json("error");
+          } else if (result.length) {
+            console.log('Found:', result);
+            response.json(result);
+          } else { //
+             console.log('Cannot locate stored recipe');
+            response.json("none found");
+          }
+        }); // end find
+    }, 1000);
+} // end update
 
 
 PORT = process.env.PORT || 80;
