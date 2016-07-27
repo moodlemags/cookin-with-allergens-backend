@@ -117,7 +117,7 @@ app.delete('/favorites/:name', function(request, response) {
           if(err) {
             console.log("error!", err);
           } else { // after deletion, retrieve list of all
-      favoritesCollection.find().toArray(function (err, result) {
+      favoriteRecipes.find().toArray(function (err, result) {
           if (err) {
             console.log("ERROR!", err);
             response.json("error");
