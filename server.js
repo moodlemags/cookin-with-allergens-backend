@@ -158,7 +158,7 @@ app.put('/favorites/:name', function(request, response) {
           }
         }); // end find
     }, 1000);
-} // end update
+}) // end update
 
 
 PORT = process.env.PORT || 80;
