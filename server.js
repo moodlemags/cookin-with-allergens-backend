@@ -143,9 +143,9 @@ app.put('/favorites/:name', function(request, response) {
     var oldTitle = {name: request.body.name};
     var newTitle = {name: request.body.newName}
 
-    favoriteRecipes.update(old,updateTo);
+    favoriteRecipes.update(oldTitle,newTitle);
       setTimeout(function() {
-        favoriteRecipes.find(updateTo).toArray(function (err, result) {
+        favoriteRecipes.find(newTitle).toArray(function (err, result) {
           if (err) {
             console.log("ERROR!", err);
             response.json("error");
