@@ -129,7 +129,7 @@ app.delete('/favorites/:name', function(request, response) {
             response.json("none found");
           }
       }); // end delete
-      }); // end else
+      }; // end else
 
   } // end search
 }); // end delete
