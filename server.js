@@ -101,7 +101,7 @@ app.get('/favorites/:name', function(request, response){
             }
 
           }); // end find
-        } // end else
+        }); // end else
 
 
         app.delete('/favorites/:name', function(request, response) {
